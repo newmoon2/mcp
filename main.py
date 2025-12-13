@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from mcp.server.fastmcp import FastMCP # Parameter is not strictly needed now, but good practice to keep if you add more complex params later
 
 # Create the FastMCP instance with stdio transport
