@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import requests
-from mcp.server.fastmcp import FastMCP # Parameter is not strictly needed now, but good practice to keep if you add more complex params later
+from mcp.server.fastmcp import FastMCP
 
 # Create the FastMCP instance with stdio transport
-mcp = FastMCP()
+mcp = FastMCP(name="search", host="localhost", port=8001)
 
 # Define the tool using the @mcp.tool() decorator
 @mcp.tool()
-def get_search(search_text: str, search_type: str = "keyword", top_k: int = 3) -> str:
+def search_documents(search_text: str, search_type: str = "keyword", top_k: int = 3) -> str:
    """
    Returns search results
 
@@ -16,6 +16,7 @@ def get_search(search_text: str, search_type: str = "keyword", top_k: int = 3) -
    :param top_k: The number of top results to return. Defaults to 3.
    :return: The search results
    """
+   print(f"search_text: {search_text}, search_type: {search_type}, top_k: {top_k}")
    try:
        payload = {
            "search_text": search_text,
@@ -32,5 +33,7 @@ def get_search(search_text: str, search_type: str = "keyword", top_k: int = 3) -
 
 # Run the server if the script is executed directly
 if __name__ == "__main__":
-   print("Starting MCP server...")
-   mcp.run(transport="stdio")
+   import uvicorn
+   print("Starting [Search] MCP server...")
+   # FastMCP의 내장 run() 메서드를 사용하여 HTTP 서버를 시작합니다.
+   mcp.run()
