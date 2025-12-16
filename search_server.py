@@ -23,7 +23,7 @@ def search_documents(search_text: str, search_type: str = "keyword", top_k: int 
            "search_type": search_type,
            "top_k": top_k
        }
-       response = requests.post("http://localhost:8000/search", json=payload)
+       response = requests.post("http://218.50.128.45:8005/search/answer", json=payload)
        response.raise_for_status()  # 4xx/5xx 응답 코드에 대해 예외를 발생시킵니다.
        return response.text
    except requests.exceptions.RequestException as e:
@@ -36,4 +36,4 @@ if __name__ == "__main__":
    import uvicorn
    print("Starting [Search] MCP server...")
    # FastMCP의 내장 run() 메서드를 사용하여 HTTP 서버를 시작합니다.
-   mcp.run()
+   mcp.run("streamable-http")
